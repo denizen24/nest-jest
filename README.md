@@ -1,31 +1,77 @@
-<p align="center">
-  <a href="http://nestjs.com/" target="blank"><img src="https://nestjs.com/img/logo_text.svg" width="320" alt="Nest Logo" /></a>
-</p>
-
-[circleci-image]: https://img.shields.io/circleci/build/github/nestjs/nest/master?token=abc123def456
-[circleci-url]: https://circleci.com/gh/nestjs/nest
-
-  <p align="center">A progressive <a href="http://nodejs.org" target="_blank">Node.js</a> framework for building efficient and scalable server-side applications.</p>
-    <p align="center">
-<a href="https://www.npmjs.com/~nestjscore" target="_blank"><img src="https://img.shields.io/npm/v/@nestjs/core.svg" alt="NPM Version" /></a>
-<a href="https://www.npmjs.com/~nestjscore" target="_blank"><img src="https://img.shields.io/npm/l/@nestjs/core.svg" alt="Package License" /></a>
-<a href="https://www.npmjs.com/~nestjscore" target="_blank"><img src="https://img.shields.io/npm/dm/@nestjs/common.svg" alt="NPM Downloads" /></a>
-<a href="https://circleci.com/gh/nestjs/nest" target="_blank"><img src="https://img.shields.io/circleci/build/github/nestjs/nest/master" alt="CircleCI" /></a>
-<a href="https://coveralls.io/github/nestjs/nest?branch=master" target="_blank"><img src="https://coveralls.io/repos/github/nestjs/nest/badge.svg?branch=master#9" alt="Coverage" /></a>
-<a href="https://discord.gg/G7Qnnhy" target="_blank"><img src="https://img.shields.io/badge/discord-online-brightgreen.svg" alt="Discord"/></a>
-<a href="https://opencollective.com/nest#backer" target="_blank"><img src="https://opencollective.com/nest/backers/badge.svg" alt="Backers on Open Collective" /></a>
-<a href="https://opencollective.com/nest#sponsor" target="_blank"><img src="https://opencollective.com/nest/sponsors/badge.svg" alt="Sponsors on Open Collective" /></a>
-  <a href="https://paypal.me/kamilmysliwiec" target="_blank"><img src="https://img.shields.io/badge/Donate-PayPal-ff3f59.svg"/></a>
-    <a href="https://opencollective.com/nest#sponsor"  target="_blank"><img src="https://img.shields.io/badge/Support%20us-Open%20Collective-41B883.svg" alt="Support us"></a>
-  <a href="https://twitter.com/nestframework" target="_blank"><img src="https://img.shields.io/twitter/follow/nestframework.svg?style=social&label=Follow"></a>
-</p>
-  <!--[![Backers on Open Collective](https://opencollective.com/nest/backers/badge.svg)](https://opencollective.com/nest#backer)
-  [![Sponsors on Open Collective](https://opencollective.com/nest/sponsors/badge.svg)](https://opencollective.com/nest#sponsor)-->
-
 ## Description
 
-[Nest](https://github.com/nestjs/nest) framework TypeScript starter repository.
+```text
+NESTJS - Тестирование. Библиотека JEST. Unit-тесты, интеграционные и приемочные тесты
 
+В начальный установочный пакет NestJs добавил тест для тестирования app.service
+Я специально использовал другой способ подключения тестовой среды Nest, 
+чтобы наглядно показать что можно и иначе
+
+Используя возможности NestJs создается тестовый модуль, 
+для этого была использована функция createTestingApp
+которую я сохранил в test/setup/helpers/
+В app.service я добавил несколько методов для тестов
+
+getSquareNumber - возведение переданного числа в квадрат
+
+getElevateNumber - возведение числа в степень
+
+getDateNow - получение текущей даты
+
+sayGoodbay - попрощаться с пользователем
+
+В файле app.service.spec.ts мы вызываем наш тестовый модуль и
+указываем / передаем в imports ему какой модуль будет тестироваться
+
+Используются стандартные методы JEST beforeAll и afterAll
+
+beforeAll - что необходимо запустить перед тестами, подготовить данные и т.п.
+
+afterAll - что необходимо запустить после тестов, очистить память, тестовую БД, закрыть соединение
+
+Дальше идут сами тесты нашего функционала у app.service
+ 
+ Каждый тест это отдельный блок describe - где вскобках указано краткое описание / имя теста
+ на самом верхнем уровне у нас так же расположен describe- это имя/описание нашего теста в целом
+ 
+ внутри каждого дочернего теста внутри describe, идет блок it() в котором так же первый параметр 
+ это описание действия или то что мы ожидаем от теста
+ в колбеке мы вызываем сам наш тест 
+ в jest используются сопоставления/ ожидания с помощью ключевого слова/функции мы сравниваем
+ наш ответ теста с ожиданием 
+ expect(response_data).toBe(expectation_data)
+ для сравнения полученных данных используются следующие операторы
+ 
+ .toBe() -используется для проверки точного совпадения
+ 
+ .not.toBe() - осуществляет проверку что переданное значение не равно
+ 
+ .toEqual() - полное сопадение, так же рекурсивно проверяет каждое поле объекта или массива.
+ 
+ toBe и toEqual эквивалентны по отношению к числам
+ 
+ .toMatch(/ася/) - Для сопоставления строк с регулярными выражениями
+ 
+ .toContain() - проверка на вхождение подстроки в ответ, а так же содержит ли массив или итерируемый 
+ 		        объект конкретное значение
+ 
+ .toBeNull - соответствует только null
+ 
+ .toUndefined - соответствует только undefined
+
+ .toBeDefined - является противоположностью toBeUndefined
+
+ .toBeTruthy - соответствует всему, что if инструкция рассматривает как true
+
+ .toBeFalsy - соответствует всему, что if инструкция рассматривает как false
+
+ .toThrow() - так же можно отследить возвращаемые исключения
+
+Наиболее частые ошибки при тестировании данных это несопоставимость данных, разныетипы данных и 
+изменчивость проверяемых данных. Данные проблемы решаются с помощью различных техник, 
+строгой типизацией возвращаемых данных, перехват исключений и ошибок, дополнительные проверки 
+по изменения данных 
+```
 ## Installation
 
 ```bash
@@ -37,12 +83,6 @@ $ npm install
 ```bash
 # development
 $ npm run start
-
-# watch mode
-$ npm run start:dev
-
-# production mode
-$ npm run start:prod
 ```
 
 ## Test
@@ -50,24 +90,5 @@ $ npm run start:prod
 ```bash
 # unit tests
 $ npm run test
-
-# e2e tests
-$ npm run test:e2e
-
-# test coverage
-$ npm run test:cov
 ```
 
-## Support
-
-Nest is an MIT-licensed open source project. It can grow thanks to the sponsors and support by the amazing backers. If you'd like to join them, please [read more here](https://docs.nestjs.com/support).
-
-## Stay in touch
-
-- Author - [Kamil Myśliwiec](https://kamilmysliwiec.com)
-- Website - [https://nestjs.com](https://nestjs.com/)
-- Twitter - [@nestframework](https://twitter.com/nestframework)
-
-## License
-
-Nest is [MIT licensed](LICENSE).

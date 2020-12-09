@@ -26,6 +26,13 @@ describe(AppService.name, () => {
     })
   })
 
+  describe('check App service ', () => {
+    it('check not toBe return "Hello World!"', async () => {
+      const responseAppService = await appService.getHello()
+      expect(responseAppService).not.toBe('Hello World!!!')
+    })
+  })
+
   describe('check App service getSquareNumber', () => {
     it('should return SquareNumber', async () => {
       const responseAppService = await appService.getSquareNumber(5)
